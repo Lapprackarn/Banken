@@ -10,27 +10,6 @@ namespace Banken
 
         public static void Main(string[] args)
         {
-            Kund info1 = new Kund();
-            info1.Namn = "kalle";
-            infoList.Add(info1);
-
-            Kund info2 = new Kund();
-            info2.Namn = "lena";
-            infoList.Add(info2);
-
-            Kund info3 = new Kund();
-            info3.Namn = "benjamin";
-            infoList.Add(info3);
-
-            for (int i = 0; i < infoList.Count; i++)
-            {
-                Console.WriteLine(infoList[i].ShowSaldoInfo());
-            }
-
-            foreach(Kund info in infoList)
-            {
-                Console.WriteLine(info.ShowSaldoInfo());
-            }
 
             int choice = 0;
             while (choice != 7)
@@ -89,27 +68,42 @@ namespace Banken
 
         private static void Addbalance()
         {
-            throw new NotImplementedException();
-        }
+            ShowCustomer();
+            Console.WriteLine("Vem vill sätta in");
+            int costumerindex = int.Parse(Console.ReadLine());
+            Console.WriteLine("Hur mycket vill du sätta");
+            int cash = int.Parse(Console.ReadLine());
+            infoList[costumerindex].Saldo += cash;
+         }
 
         private static void Showbalance()
         {
-            throw new NotImplementedException();
+           
         }
 
         private static void ShowCustomer()
         {
-            throw new NotImplementedException();
+
+            for (int i = 0; i < infoList.Count; i++)
+            {
+                Console.WriteLine(i+" "+infoList[i].ShowSaldoInfo());
+            }
         }
 
         private static void RemoveCustomer()
         {
-            throw new NotImplementedException();
+            ShowCustomer();
+            Console.WriteLine("Vilken kund vill du ta bort?");
+            int choice = int.Parse(Console.ReadLine());
+            infoList.RemoveAt(choice);
         }
 
         private static void AddCustomer()
         {
-            throw new NotImplementedException();
+            Kund info1 = new Kund();
+            Console.WriteLine("Vad ska kunden heta?");
+            info1.Namn = Console.ReadLine();
+            infoList.Add(info1);
         }
 
         private static int GetChoiceFromUser()
@@ -117,13 +111,18 @@ namespace Banken
 
             Console.WriteLine("Välkommen till Banken!");
             Console.WriteLine("Ange vilket av följande alternativ du önskar att göra");
-            Console.WriteLine("Lägga till användre");
-            Console.WriteLine("ta bort användare");
-            Console.WriteLine("Visa alla befintliga användare");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
+            Console.WriteLine("1. Lägga till användare");
+            Console.WriteLine("2. Ta bort användare");
+            Console.WriteLine("3. Visa alla befintliga användare");
+            Console.WriteLine("4. Visa saldo för en användare");
+            Console.WriteLine("5. Gör en insättning åt en användare");
+            Console.WriteLine("6. Gör ett uttag för en användare");
+            Console.WriteLine("7. Avsluta programmet");
+
+            Console.WriteLine("Skriv ditt val här");
+            int choice = int.Parse(Console.ReadLine());
+            return choice ;
+
 
         }
     }
