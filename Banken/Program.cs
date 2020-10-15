@@ -10,6 +10,29 @@ namespace Banken
 
         public static void Main(string[] args)
         {
+            string filepath = @"C:\test\";
+            string filename = @"data.txt";
+
+            Kund ui1 = new Kund("Micke");
+            Kund ui2 = new Kund("Carola");
+            listOfUser.Add(ui1);
+            listOfUser.Add(ui2);
+            string users = "";
+            foreach (UserInfo u in listOfUser)
+            {
+                users += u.name + ";";
+            }
+            WriteFile(filepath, filename, users);
+
+            string text = ReadFile(filepath + filename);
+            string[] items = text.Split(';');
+            Kund ui1 = new Kund(items[0]);
+            Kund ui2 = new Kund(items[1]);
+            listOfUser.Add(ui1);
+            listOfUser.Add(ui2);
+            Console.WriteLine(text);
+            Console.ReadKey();
+
 
             int choice = 0;
             while (choice != 7)
