@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices.ComTypes;
 
 namespace Banken
@@ -12,26 +14,39 @@ namespace Banken
         {
             string filepath = @"C:\test\";
             string filename = @"data.txt";
+            /*
+            Kund ui1 = new Kund();
+            ui1.Namn = "micke";
 
-            Kund ui1 = new Kund("Micke");
-            Kund ui2 = new Kund("Carola");
-            listOfUser.Add(ui1);
-            listOfUser.Add(ui2);
+            Kund ui2 = new Kund();
+            ui2.Namn = "Carola";
+            infoList.Add(ui1);
+            infoList.Add(ui2);
             string users = "";
-            foreach (UserInfo u in listOfUser)
+            foreach (Kund u in infoList)
             {
-                users += u.name + ";";
+                users += u.Namn + ";";
             }
             WriteFile(filepath, filename, users);
+            */
+            if(File.Exists(filepath + filename))
+            {
+                string text = ReadFile(filepath + filename);
+                if (text != "")
+                {
+                    string[] items = text.Split(';');
+                    foreach (string kundname in items)
+                    {
+                        Kund kund = new Kund();
+                        kund.Namn = kundname;
+                        infoList.Add(kund);
 
-            string text = ReadFile(filepath + filename);
-            string[] items = text.Split(';');
-            Kund ui1 = new Kund(items[0]);
-            Kund ui2 = new Kund(items[1]);
-            listOfUser.Add(ui1);
-            listOfUser.Add(ui2);
-            Console.WriteLine(text);
-            Console.ReadKey();
+                    }
+
+
+                }
+            }
+            
 
 
             int choice = 0;
@@ -82,6 +97,26 @@ namespace Banken
 
 
 
+        }
+        static string ReadFile(string filename)
+        {
+            string text = File.ReadAllText(filename);
+            return text;
+        }
+
+        static void WriteFile(string filepath, string filename,string text)
+        {
+            string f = filepath + filename;
+
+            if (File.Exists(f))
+            {
+                File.Delete(f);
+            }
+            if (Directory.Exists(filepath) == false)
+            {
+                Directory.CreateDirectory(filepath);
+            }
+            File.WriteAllText(f, text);
         }
 
         private static void Removebalance()
